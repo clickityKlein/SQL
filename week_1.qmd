@@ -1,0 +1,5 @@
+---
+title: "The Basic SELECT"
+---
+
+Where every course in SQL begins, the `SELECT` statement. We'll then venture into other basic functions.

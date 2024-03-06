@@ -1,0 +1,7 @@
+---
+title: "SQL"
+---
+
+A website dedicated to fundamental SQL use.
+
+The DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL.

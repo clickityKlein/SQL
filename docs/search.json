@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "week_2.html",
+    "href": "week_2.html",
+    "title": "Group Functions and SubQueries",
+    "section": "",
+    "text": "This page will roughly cover the five GROUP functions, GROUP BY, and using SubQueries."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "SQL",
+    "section": "",
+    "text": "A website dedicated to fundamental SQL use.\nThe DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\nCode1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "week_1.html",
+    "href": "week_1.html",
+    "title": "The Basic SELECT",
+    "section": "",
+    "text": "Where every course in SQL begins, the SELECT statement. We’ll then venture into other basic functions."
+  }
+]
