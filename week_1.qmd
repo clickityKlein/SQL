@@ -3,3 +3,170 @@ title: "The Basic SELECT"
 ---
 
 Where every course in SQL begins, the `SELECT` statement. We'll then venture into other basic functions.
+
+Let's practice some SQL queries on the Northwinds Database.
+
+# Concepts
+
+## Basic SELECT
+
+### Example 1
+---
+
+**Query**
+
+```
+SELECT * from employees;
+```
+
+**Result**: returns all rows and all columns.
+
+---
+
+### Example 2
+---
+
+**Query**
+
+```
+SELECT employee_id, last_name, first_name from employees;
+```
+
+**Result**: returns selected columns.
+
+---
+
+## Expressions
+
+### Example 1 - Functions
+---
+
+**Query**
+
+```
+SELECT last_name, first_name, hire_date, current_date,
+  date_part('month', hire_date)
+  from employees;
+```
+
+**Result**: returns selected column and a new column with just the month of the date the employee was hired.
+
+---
+
+
+### Example 2 - Math Equations
+---
+
+**Query**
+
+```
+SELECT order_id, unit_price, quantity,
+  unit_price * quantity
+  from order_details;
+```
+
+**Result**: returns selected column and a new column with the unit_price times the quantity (i.e. total sales).
+
+---
+
+## Column Aliases
+
+### Example 1 - Functions (with Alias)
+---
+
+**Query**
+
+```
+SELECT last_name, first_name, hire_date, current_date,
+  date_part('month', hire_date) as "Hire Month"
+  from employees;
+```
+
+**Result**: returns selected column and a new column with just the month of the date the employee was hired.
+
+---
+
+### Example 2 - Math Equations (with Alias)
+---
+
+**Query**
+
+```
+SELECT order_id, unit_price, quantity,
+  unit_price * quantity as "Total Value"
+  from order_details;
+```
+
+**Result**: returns selected column and a new column with the unit_price times the quantity (i.e. total sales).
+
+---
+
+## Concatenation
+
+### Example 1 - Function
+---
+
+**Query**
+
+```
+SELECT concat(first_name, ' ', last_name) as "Name"
+  from employees;
+```
+
+**Result**: returns a new column named "Name" with the employee's first and last name concatenated together with a space between the name portions.
+
+---
+
+### Example 2 - Syntax
+---
+
+**Query**
+
+```
+SELECT first_name || ' ' || last_name as "Name"
+  from employees;
+```
+
+**Result**: returns a new column named "Name" with the employee's first and last name concatenated together with a space between the name portions.
+
+---
+
+
+## Comments
+
+### Example 1 - Single Line Comment
+---
+
+**Query**
+
+```
+SELECT concat(first_name, ' ', last_name) as "Name"
+--- this is concatenating the first and last name
+  from employees;
+```
+
+**Result**
+
+---
+
+### Example 2 - Multi Line Comment
+---
+
+**Query**
+
+```
+SELECT concat(first_name, ' ', last_name) as "Name"
+/* this is concatenating the first and last name
+so that the names are combined */
+  from employees;
+```
+
+**Result**
+
+---
+
+# Labs
+
+## Lab 1
+
+### Question 1

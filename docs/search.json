@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "SQL",
     "section": "",
-    "text": "A website dedicated to fundamental SQL use.\nThe DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL."
+    "text": "A website dedicated to fundamental SQL use.\nThe DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL.\nMuch of the content originated from The Structured Query Language (SQL), through CU Boulder on Coursera.\nThe database used for practice is the North Winds Database. Implementation code can be found here."
   },
   {
     "objectID": "about.html",
@@ -25,6 +25,6 @@
     "href": "week_1.html",
     "title": "The Basic SELECT",
     "section": "",
-    "text": "Where every course in SQL begins, the SELECT statement. We’ll then venture into other basic functions."
+    "text": "Where every course in SQL begins, the SELECT statement. We’ll then venture into other basic functions.\nLet’s practice some SQL queries on the Northwinds Database.\n\nBasic SELECT\n\nQuery\nSELECT * from employees\nResult"
   }
 ]

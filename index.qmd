@@ -5,3 +5,7 @@ title: "SQL"
 A website dedicated to fundamental SQL use.
 
 The DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL.
+
+Much of the content originated from [The Structured Query Language (SQL)](https://www.coursera.org/learn/the-structured-query-language-sql?specialization=databases-for-data-scientists), through CU Boulder on Coursera.
+
+The database used for practice is the Northwinds Database. Implementation code can be found [here](https://github.com/pthom/northwind_psql/blob/master/northwind.sql).
