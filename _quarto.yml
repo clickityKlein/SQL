@@ -8,7 +8,7 @@ website:
   page-footer:
     center: |
       <a href="https://clickityklein.github.io/Carl-Klein/">About Carl Klein</a>
-    background: "#292524"
+    background: primary
     
   navbar:
     left:
@@ -37,7 +37,7 @@ format:
     citations-hover: true
     code-link: true
     code-fold: true
-    theme: sandstone
+    theme: flatly
     css: styles.css
-    code-block-border-left: "#292524"
+    code-block-border-left: primary
     toc: true

@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "SQL",
     "section": "",
-    "text": "A website dedicated to fundamental SQL use.\nThe DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL.\nMuch of the content originated from The Structured Query Language (SQL), through CU Boulder on Coursera.\nThe database used for practice is the North Winds Database. Implementation code can be found here."
+    "text": "A website dedicated to fundamental SQL use.\nThe DBMS the SQL queries are ran through, and respective syntax used, will PostgreSQL.\nMuch of the content originated from The Structured Query Language (SQL), through CU Boulder on Coursera.\nThe database used for practice is the Northwinds Database. Implementation code can be found here."
   },
   {
     "objectID": "about.html",
@@ -25,6 +25,48 @@
     "href": "week_1.html",
     "title": "The Basic SELECT",
     "section": "",
-    "text": "Where every course in SQL begins, the SELECT statement. We’ll then venture into other basic functions.\nLet’s practice some SQL queries on the Northwinds Database.\n\nBasic SELECT\n\nQuery\nSELECT * from employees\nResult"
+    "text": "Where every course in SQL begins, the SELECT statement. We’ll then venture into other basic functions.\nLet’s practice some SQL queries on the Northwinds Database."
+  },
+  {
+    "objectID": "week_1.html#basic-select",
+    "href": "week_1.html#basic-select",
+    "title": "The Basic SELECT",
+    "section": "Basic SELECT",
+    "text": "Basic SELECT\n\nExample 1\n\nQuery\nSELECT * from employees;\nResult: returns all rows and all columns.\n\n\n\nExample 2\n\nQuery\nSELECT employee_id, last_name, first_name from employees;\nResult: returns selected columns."
+  },
+  {
+    "objectID": "week_1.html#expressions",
+    "href": "week_1.html#expressions",
+    "title": "The Basic SELECT",
+    "section": "Expressions",
+    "text": "Expressions\n\nExample 1 - Functions\n\nQuery\nSELECT last_name, first_name, hire_date, current_date,\n  date_part('month', hire_date)\n  from employees;\nResult: returns selected column and a new column with just the month of the date the employee was hired.\n\n\n\nExample 2 - Math Equations\n\nQuery\nSELECT order_id, unit_price, quantity,\n  unit_price * quantity\n  from order_details;\nResult: returns selected column and a new column with the unit_price times the quantity (i.e. total sales)."
+  },
+  {
+    "objectID": "week_1.html#column-aliases",
+    "href": "week_1.html#column-aliases",
+    "title": "The Basic SELECT",
+    "section": "Column Aliases",
+    "text": "Column Aliases\n\nExample 1 - Functions (with Alias)\n\nQuery\nSELECT last_name, first_name, hire_date, current_date,\n  date_part('month', hire_date) as \"Hire Month\"\n  from employees;\nResult: returns selected column and a new column with just the month of the date the employee was hired.\n\n\n\nExample 2 - Math Equations (with Alias)\n\nQuery\nSELECT order_id, unit_price, quantity,\n  unit_price * quantity as \"Total Value\"\n  from order_details;\nResult: returns selected column and a new column with the unit_price times the quantity (i.e. total sales)."
+  },
+  {
+    "objectID": "week_1.html#concatenation",
+    "href": "week_1.html#concatenation",
+    "title": "The Basic SELECT",
+    "section": "Concatenation",
+    "text": "Concatenation\n\nExample 1 - Function\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n  from employees;\nResult: returns a new column named “Name” with the employee’s first and last name concatenated together with a space between the name portions.\n\n\n\nExample 2 - Syntax\n\nQuery\nSELECT first_name || ' ' || last_name as \"Name\"\n  from employees;\nResult: returns a new column named “Name” with the employee’s first and last name concatenated together with a space between the name portions."
+  },
+  {
+    "objectID": "week_1.html#comments",
+    "href": "week_1.html#comments",
+    "title": "The Basic SELECT",
+    "section": "Comments",
+    "text": "Comments\n\nExample 1 - Single Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n--- this is concatenating the first and last name\n  from employees;\nResult\n\n\n\nExample 2 - Multi Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n/* this is concatenating the first and last name\nso that the names are combined */\n  from employees;\nResult"
+  },
+  {
+    "objectID": "week_1.html#lab-1",
+    "href": "week_1.html#lab-1",
+    "title": "The Basic SELECT",
+    "section": "Lab 1",
+    "text": "Lab 1\n\nQuestion 1"
   }
 ]

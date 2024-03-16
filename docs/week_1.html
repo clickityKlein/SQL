@@ -131,7 +131,41 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basic-select" id="toc-basic-select" class="nav-link active" data-scroll-target="#basic-select">Basic SELECT</a></li>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts">Concepts</a>
+  <ul class="collapse">
+  <li><a href="#basic-select" id="toc-basic-select" class="nav-link" data-scroll-target="#basic-select">Basic SELECT</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  </ul></li>
+  <li><a href="#expressions" id="toc-expressions" class="nav-link" data-scroll-target="#expressions">Expressions</a>
+  <ul class="collapse">
+  <li><a href="#example-1---functions" id="toc-example-1---functions" class="nav-link" data-scroll-target="#example-1---functions">Example 1 - Functions</a></li>
+  <li><a href="#example-2---math-equations" id="toc-example-2---math-equations" class="nav-link" data-scroll-target="#example-2---math-equations">Example 2 - Math Equations</a></li>
+  </ul></li>
+  <li><a href="#column-aliases" id="toc-column-aliases" class="nav-link" data-scroll-target="#column-aliases">Column Aliases</a>
+  <ul class="collapse">
+  <li><a href="#example-1---functions-with-alias" id="toc-example-1---functions-with-alias" class="nav-link" data-scroll-target="#example-1---functions-with-alias">Example 1 - Functions (with Alias)</a></li>
+  <li><a href="#example-2---math-equations-with-alias" id="toc-example-2---math-equations-with-alias" class="nav-link" data-scroll-target="#example-2---math-equations-with-alias">Example 2 - Math Equations (with Alias)</a></li>
+  </ul></li>
+  <li><a href="#concatenation" id="toc-concatenation" class="nav-link" data-scroll-target="#concatenation">Concatenation</a>
+  <ul class="collapse">
+  <li><a href="#example-1---function" id="toc-example-1---function" class="nav-link" data-scroll-target="#example-1---function">Example 1 - Function</a></li>
+  <li><a href="#example-2---syntax" id="toc-example-2---syntax" class="nav-link" data-scroll-target="#example-2---syntax">Example 2 - Syntax</a></li>
+  </ul></li>
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a>
+  <ul class="collapse">
+  <li><a href="#example-1---single-line-comment" id="toc-example-1---single-line-comment" class="nav-link" data-scroll-target="#example-1---single-line-comment">Example 1 - Single Line Comment</a></li>
+  <li><a href="#example-2---multi-line-comment" id="toc-example-2---multi-line-comment" class="nav-link" data-scroll-target="#example-2---multi-line-comment">Example 2 - Multi Line Comment</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#labs" id="toc-labs" class="nav-link" data-scroll-target="#labs">Labs</a>
+  <ul class="collapse">
+  <li><a href="#lab-1" id="toc-lab-1" class="nav-link" data-scroll-target="#lab-1">Lab 1</a>
+  <ul class="collapse">
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -159,15 +193,129 @@ ul.task-list li input[type="checkbox"] {
 
 <p>Where every course in SQL begins, the <code>SELECT</code> statement. We’ll then venture into other basic functions.</p>
 <p>Let’s practice some SQL queries on the Northwinds Database.</p>
-<section id="basic-select" class="level1">
-<h1>Basic SELECT</h1>
+<section id="concepts" class="level1">
+<h1>Concepts</h1>
+<section id="basic-select" class="level2">
+<h2 class="anchored" data-anchor-id="basic-select">Basic SELECT</h2>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
 <hr>
 <p><strong>Query</strong></p>
-<pre><code>SELECT * from employees</code></pre>
+<pre><code>SELECT * from employees;</code></pre>
+<p><strong>Result</strong>: returns all rows and all columns.</p>
+<hr>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT employee_id, last_name, first_name from employees;</code></pre>
+<p><strong>Result</strong>: returns selected columns.</p>
+<hr>
+</section>
+</section>
+<section id="expressions" class="level2">
+<h2 class="anchored" data-anchor-id="expressions">Expressions</h2>
+<section id="example-1---functions" class="level3">
+<h3 class="anchored" data-anchor-id="example-1---functions">Example 1 - Functions</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT last_name, first_name, hire_date, current_date,
+  date_part('month', hire_date)
+  from employees;</code></pre>
+<p><strong>Result</strong>: returns selected column and a new column with just the month of the date the employee was hired.</p>
+<hr>
+</section>
+<section id="example-2---math-equations" class="level3">
+<h3 class="anchored" data-anchor-id="example-2---math-equations">Example 2 - Math Equations</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT order_id, unit_price, quantity,
+  unit_price * quantity
+  from order_details;</code></pre>
+<p><strong>Result</strong>: returns selected column and a new column with the unit_price times the quantity (i.e.&nbsp;total sales).</p>
+<hr>
+</section>
+</section>
+<section id="column-aliases" class="level2">
+<h2 class="anchored" data-anchor-id="column-aliases">Column Aliases</h2>
+<section id="example-1---functions-with-alias" class="level3">
+<h3 class="anchored" data-anchor-id="example-1---functions-with-alias">Example 1 - Functions (with Alias)</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT last_name, first_name, hire_date, current_date,
+  date_part('month', hire_date) as "Hire Month"
+  from employees;</code></pre>
+<p><strong>Result</strong>: returns selected column and a new column with just the month of the date the employee was hired.</p>
+<hr>
+</section>
+<section id="example-2---math-equations-with-alias" class="level3">
+<h3 class="anchored" data-anchor-id="example-2---math-equations-with-alias">Example 2 - Math Equations (with Alias)</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT order_id, unit_price, quantity,
+  unit_price * quantity as "Total Value"
+  from order_details;</code></pre>
+<p><strong>Result</strong>: returns selected column and a new column with the unit_price times the quantity (i.e.&nbsp;total sales).</p>
+<hr>
+</section>
+</section>
+<section id="concatenation" class="level2">
+<h2 class="anchored" data-anchor-id="concatenation">Concatenation</h2>
+<section id="example-1---function" class="level3">
+<h3 class="anchored" data-anchor-id="example-1---function">Example 1 - Function</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT concat(first_name, ' ', last_name) as "Name"
+  from employees;</code></pre>
+<p><strong>Result</strong>: returns a new column named “Name” with the employee’s first and last name concatenated together with a space between the name portions.</p>
+<hr>
+</section>
+<section id="example-2---syntax" class="level3">
+<h3 class="anchored" data-anchor-id="example-2---syntax">Example 2 - Syntax</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT first_name || ' ' || last_name as "Name"
+  from employees;</code></pre>
+<p><strong>Result</strong>: returns a new column named “Name” with the employee’s first and last name concatenated together with a space between the name portions.</p>
+<hr>
+</section>
+</section>
+<section id="comments" class="level2">
+<h2 class="anchored" data-anchor-id="comments">Comments</h2>
+<section id="example-1---single-line-comment" class="level3">
+<h3 class="anchored" data-anchor-id="example-1---single-line-comment">Example 1 - Single Line Comment</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT concat(first_name, ' ', last_name) as "Name"
+--- this is concatenating the first and last name
+  from employees;</code></pre>
 <p><strong>Result</strong></p>
 <hr>
+</section>
+<section id="example-2---multi-line-comment" class="level3">
+<h3 class="anchored" data-anchor-id="example-2---multi-line-comment">Example 2 - Multi Line Comment</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>SELECT concat(first_name, ' ', last_name) as "Name"
+/* this is concatenating the first and last name
+so that the names are combined */
+  from employees;</code></pre>
+<p><strong>Result</strong></p>
+<hr>
+</section>
+</section>
+</section>
+<section id="labs" class="level1">
+<h1>Labs</h1>
+<section id="lab-1" class="level2">
+<h2 class="anchored" data-anchor-id="lab-1">Lab 1</h2>
+<section id="question-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
