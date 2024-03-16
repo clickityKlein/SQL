@@ -60,13 +60,13 @@
     "href": "week_1.html#comments",
     "title": "The Basic SELECT",
     "section": "Comments",
-    "text": "Comments\n\nExample 1 - Single Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n--- this is concatenating the first and last name\n  from employees;\nResult\n\n\n\nExample 2 - Multi Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n/* this is concatenating the first and last name\nso that the names are combined */\n  from employees;\nResult"
+    "text": "Comments\n\nExample 1 - Single Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n--- this is concatenating the first and last name\n  from employees;\nResult: single line comment only visible in the query code text, not in output.\n\n\n\nExample 2 - Multi-Line Comment\n\nQuery\nSELECT concat(first_name, ' ', last_name) as \"Name\"\n/* this is concatenating the first and last name\nso that the names are combined */\n  from employees;\nResult: multi-line comment only visible in the query code text, not in output."
   },
   {
     "objectID": "week_1.html#lab-1",
     "href": "week_1.html#lab-1",
     "title": "The Basic SELECT",
     "section": "Lab 1",
-    "text": "Lab 1\n\nQuestion 1"
+    "text": "Lab 1\n\nQuestion 1\nQuestion\nList all the products in the North Winds database showing product_id, product_name, quantity_per_unit, unit_price, and units_in_stock.\nAnswer:\nSELECT product_id, product_name, quantity_per_unit, unit_price, units_in_stock\n  FROM products;\n\n\nQuestion 2\nQuestion\nFor all employees at North Winds, list the first name and last name concatenated together with a blank space in-between, and the YEAR when they were hired.\nAnswer:\nSELECT concat(first_name, ' ', last_name) as name,\n  date_part('year', hire_date)\n  FROM employees;\n\n\nQuestion 3\nQuestion\nFor all products in the North Winds database, list the product_name, unit_price, units_in_stock, and the total value of the inventory of that product as “total_value”.\nHint: total_value = units_in_stock * unit_price\nAnswer:\nSELECT product_name, unit_price, units_in_stock,\n  units_in_stock * unit_price as total_value\n  FROM products;\n\n\nQuestion 4\nQuestion\nFor all employees at North Winds, list the first and last name concatenated together with a blank space between under column header “name”, and the name of the month (spelled out) for each employee’s birthday.\nAnswer:\nSELECT concat(first_name, ' ', last_name) as name,\n  --- date_part('month', birth_date) will return the number month\n  --- to_char(birth_date, 'month') will return the month spelled out, in lowercase\n  --- to_char(birth_date, 'Month') will return the month spelled out, in proper case\n  --- to_char(birth_date, 'MONTH') will return the month spelled out, in uppercase\n  to_char(birth_date, 'Month')\n  FROM employees;"
   }
 ]

@@ -23,7 +23,7 @@ website:
       - icon: github
         menu:
           - text: "Source Code"
-            href: https://github.com/clickityKlein/Statistics
+            href: https://github.com/clickityKlein/SQL
           - text: "Carl Klein's Main Page"
             href: https://github.com/clickityKlein
 

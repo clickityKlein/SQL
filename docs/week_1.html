@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/clickityKlein/Statistics">
+    <a class="dropdown-item" href="https://github.com/clickityKlein/SQL">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
@@ -156,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a>
   <ul class="collapse">
   <li><a href="#example-1---single-line-comment" id="toc-example-1---single-line-comment" class="nav-link" data-scroll-target="#example-1---single-line-comment">Example 1 - Single Line Comment</a></li>
-  <li><a href="#example-2---multi-line-comment" id="toc-example-2---multi-line-comment" class="nav-link" data-scroll-target="#example-2---multi-line-comment">Example 2 - Multi Line Comment</a></li>
+  <li><a href="#example-2---multi-line-comment" id="toc-example-2---multi-line-comment" class="nav-link" data-scroll-target="#example-2---multi-line-comment">Example 2 - Multi-Line Comment</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#labs" id="toc-labs" class="nav-link" data-scroll-target="#labs">Labs</a>
@@ -164,6 +164,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#lab-1" id="toc-lab-1" class="nav-link" data-scroll-target="#lab-1">Lab 1</a>
   <ul class="collapse">
   <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -290,18 +293,18 @@ ul.task-list li input[type="checkbox"] {
 <pre><code>SELECT concat(first_name, ' ', last_name) as "Name"
 --- this is concatenating the first and last name
   from employees;</code></pre>
-<p><strong>Result</strong></p>
+<p><strong>Result</strong>: single line comment only visible in the query code text, not in output.</p>
 <hr>
 </section>
 <section id="example-2---multi-line-comment" class="level3">
-<h3 class="anchored" data-anchor-id="example-2---multi-line-comment">Example 2 - Multi Line Comment</h3>
+<h3 class="anchored" data-anchor-id="example-2---multi-line-comment">Example 2 - Multi-Line Comment</h3>
 <hr>
 <p><strong>Query</strong></p>
 <pre><code>SELECT concat(first_name, ' ', last_name) as "Name"
 /* this is concatenating the first and last name
 so that the names are combined */
   from employees;</code></pre>
-<p><strong>Result</strong></p>
+<p><strong>Result</strong>: multi-line comment only visible in the query code text, not in output.</p>
 <hr>
 </section>
 </section>
@@ -312,6 +315,43 @@ so that the names are combined */
 <h2 class="anchored" data-anchor-id="lab-1">Lab 1</h2>
 <section id="question-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
+<p><strong>Question</strong></p>
+<p>List all the products in the North Winds database showing product_id, product_name, quantity_per_unit, unit_price, and units_in_stock.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>SELECT product_id, product_name, quantity_per_unit, unit_price, units_in_stock
+  FROM products;</code></pre>
+</section>
+<section id="question-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2">Question 2</h3>
+<p><strong>Question</strong></p>
+<p>For all employees at North Winds, list the first name and last name concatenated together with a blank space in-between, and the YEAR when they were hired.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>SELECT concat(first_name, ' ', last_name) as name,
+  date_part('year', hire_date)
+  FROM employees;</code></pre>
+</section>
+<section id="question-3" class="level3">
+<h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
+<p><strong>Question</strong></p>
+<p>For all products in the North Winds database, list the product_name, unit_price, units_in_stock, and the total value of the inventory of that product as “total_value”.</p>
+<p><code>Hint: total_value = units_in_stock * unit_price</code></p>
+<p><strong>Answer</strong>:</p>
+<pre><code>SELECT product_name, unit_price, units_in_stock,
+  units_in_stock * unit_price as total_value
+  FROM products;</code></pre>
+</section>
+<section id="question-4" class="level3">
+<h3 class="anchored" data-anchor-id="question-4">Question 4</h3>
+<p><strong>Question</strong></p>
+<p>For all employees at North Winds, list the first and last name concatenated together with a blank space between under column header “name”, and the name of the month (spelled out) for each employee’s birthday.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>SELECT concat(first_name, ' ', last_name) as name,
+  --- date_part('month', birth_date) will return the number month
+  --- to_char(birth_date, 'month') will return the month spelled out, in lowercase
+  --- to_char(birth_date, 'Month') will return the month spelled out, in proper case
+  --- to_char(birth_date, 'MONTH') will return the month spelled out, in uppercase
+  to_char(birth_date, 'Month')
+  FROM employees;</code></pre>
 
 
 </section>

@@ -145,11 +145,11 @@ SELECT concat(first_name, ' ', last_name) as "Name"
   from employees;
 ```
 
-**Result**
+**Result**: single line comment only visible in the query code text, not in output.
 
 ---
 
-### Example 2 - Multi Line Comment
+### Example 2 - Multi-Line Comment
 ---
 
 **Query**
@@ -161,7 +161,7 @@ so that the names are combined */
   from employees;
 ```
 
-**Result**
+**Result**: multi-line comment only visible in the query code text, not in output.
 
 ---
 
@@ -170,3 +170,62 @@ so that the names are combined */
 ## Lab 1
 
 ### Question 1
+
+**Question**
+
+List all the products in the North Winds database showing product_id, product_name, quantity_per_unit, unit_price, and units_in_stock.
+
+**Answer**:
+
+```
+SELECT product_id, product_name, quantity_per_unit, unit_price, units_in_stock
+  FROM products;
+```
+
+### Question 2
+
+**Question**
+
+For all employees at North Winds, list the first name and last name concatenated together with a blank space in-between, and the YEAR when they were hired.
+
+**Answer**:
+
+```
+SELECT concat(first_name, ' ', last_name) as name,
+  date_part('year', hire_date)
+  FROM employees;
+```
+
+### Question 3
+
+**Question**
+
+For all products in the North Winds database, list the product_name, unit_price, units_in_stock, and the total value of the inventory of that product as "total_value".
+
+`Hint: total_value = units_in_stock * unit_price`
+
+**Answer**:
+
+```
+SELECT product_name, unit_price, units_in_stock,
+  units_in_stock * unit_price as total_value
+  FROM products;
+```
+
+### Question 4
+
+**Question**
+
+For all employees at North Winds, list the first and last name concatenated together with a blank space between under column header "name", and the name of the month (spelled out) for each employee's birthday.
+
+**Answer**:
+
+```
+SELECT concat(first_name, ' ', last_name) as name,
+  --- date_part('month', birth_date) will return the number month
+  --- to_char(birth_date, 'month') will return the month spelled out, in lowercase
+  --- to_char(birth_date, 'Month') will return the month spelled out, in proper case
+  --- to_char(birth_date, 'MONTH') will return the month spelled out, in uppercase
+  to_char(birth_date, 'Month')
+  FROM employees;
+```
