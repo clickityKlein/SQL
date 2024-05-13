@@ -168,6 +168,20 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
   <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
   </ul></li>
+  <li><a href="#lab-2" id="toc-lab-2" class="nav-link" data-scroll-target="#lab-2">Lab 2</a>
+  <ul class="collapse">
+  <li><a href="#question-1-1" id="toc-question-1-1" class="nav-link" data-scroll-target="#question-1-1">Question 1</a></li>
+  <li><a href="#question-2-1" id="toc-question-2-1" class="nav-link" data-scroll-target="#question-2-1">Question 2</a></li>
+  <li><a href="#question-3-1" id="toc-question-3-1" class="nav-link" data-scroll-target="#question-3-1">Question 3</a></li>
+  <li><a href="#question-4-1" id="toc-question-4-1" class="nav-link" data-scroll-target="#question-4-1">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  </ul></li>
+  <li><a href="#lab-3" id="toc-lab-3" class="nav-link" data-scroll-target="#lab-3">Lab 3</a>
+  <ul class="collapse">
+  <li><a href="#question-1-2" id="toc-question-1-2" class="nav-link" data-scroll-target="#question-1-2">Question 1</a></li>
+  <li><a href="#question-2-2" id="toc-question-2-2" class="nav-link" data-scroll-target="#question-2-2">Question 2</a></li>
+  <li><a href="#question-3-2" id="toc-question-3-2" class="nav-link" data-scroll-target="#question-3-2">Question 3</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -352,6 +366,87 @@ so that the names are combined */
   --- to_char(birth_date, 'MONTH') will return the month spelled out, in uppercase
   to_char(birth_date, 'Month')
   FROM employees;</code></pre>
+</section>
+</section>
+<section id="lab-2" class="level2">
+<h2 class="anchored" data-anchor-id="lab-2">Lab 2</h2>
+<section id="question-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-1">Question 1</h3>
+<p><strong>Question</strong>:</p>
+<p>List the customerid, companyname, and country for all customers NOT in the USA.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select customer_id, company_name, country
+from customers
+where not country = 'U.S.A';</code></pre>
+</section>
+<section id="question-2-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-1">Question 2</h3>
+<p><strong>Question</strong>:</p>
+<p>For all products in the Northwinds database, list the productname, unitprice, unitsinstock, and the total value of the inventory of that product as “Total Value” for all products with a Total Value greater than $1000.</p>
+<p><code>(HINT:  total value = unitsinstock * unitprice)</code></p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select product_name, unit_price, units_in_stock,
+(unit_price * units_in_stock) as total_value
+from products
+where (unit_price * units_in_stock) &gt; 1000;</code></pre>
+</section>
+<section id="question-3-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-1">Question 3</h3>
+<p><strong>Question</strong>:</p>
+<p>List the productid, productname, and unitprice for all products whose categoryid is an ODD number.</p>
+<p><code>(HINT: categoryid is a one digit integer less than 9)</code></p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select product_id, product_name, unit_price, category_id
+from products
+where not (category_id % 2) in (0);</code></pre>
+</section>
+<section id="question-4-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-4-1">Question 4</h3>
+<p><strong>Question</strong>:</p>
+<p>List the productid, productname, and quantityperunit for all products that come in bottles.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select product_id, product_name, quantity_per_unit
+from products
+where quantity_per_unit like '%bottle%';</code></pre>
+</section>
+<section id="question-5" class="level3">
+<h3 class="anchored" data-anchor-id="question-5">Question 5</h3>
+<p><strong>Question</strong>:</p>
+<p>List the orderid, customerid, and shippeddate for orders that shipped to Canada in December 1996 through the end of January 1997.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select order_id, customer_id, shipped_date
+from products
+where (ship_country = 'Canada')
+and (shipped_date between '1996-12-01' and '1997-01-31');</code></pre>
+</section>
+</section>
+<section id="lab-3" class="level2">
+<h2 class="anchored" data-anchor-id="lab-3">Lab 3</h2>
+<section id="question-1-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-2">Question 1</h3>
+<p><strong>Question</strong>:</p>
+<p>List the employeeid, firstname + lastname concatenated as ‘employee’, and the age of the employee when they were hired.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select employee_id, concat(first_name, ' ', last_name) as employee,
+age(hire_date, birth_date)
+from employees;</code></pre>
+</section>
+<section id="question-2-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-2">Question 2</h3>
+<p><strong>Question</strong>:</p>
+<p>Run a query to calculate your age as of today.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select age(to_date('19941201', 'YYYYMMDD'));</code></pre>
+</section>
+<section id="question-3-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-2">Question 3</h3>
+<p><strong>Question</strong>:</p>
+<p>List the employeeid, firstname + lastname concatenated as ‘employee’, and hire date for all employees hired in 1993.</p>
+<p><strong>Answer</strong>:</p>
+<pre><code>select employee_id, concat(first_name, ' ', last_name) as employee,
+hire_date
+from employees
+where hire_date between '19930101' and '19931231';</code></pre>
 
 
 </section>

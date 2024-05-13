@@ -127,7 +127,24 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts">Concepts</a>
+  <ul class="collapse">
+  <li><a href="#group-by" id="toc-group-by" class="nav-link" data-scroll-target="#group-by">GROUP BY</a></li>
+  <li><a href="#having" id="toc-having" class="nav-link" data-scroll-target="#having">HAVING</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3</a></li>
+  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example 4</a></li>
+  <li><a href="#example-4-1" id="toc-example-4-1" class="nav-link" data-scroll-target="#example-4-1">Example 4</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -152,8 +169,89 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>This page will roughly cover the five <code>GROUP</code> functions, <code>GROUP BY</code>, and using SubQueries.</p>
+<section id="concepts" class="level1">
+<h1>Concepts</h1>
+<section id="group-by" class="level2">
+<h2 class="anchored" data-anchor-id="group-by">GROUP BY</h2>
+<p>We’ve previously seen that <code>Group Functions</code> summarize values in an interim answer set return values grouped across many rows. The <code>GROUP BY</code> clause enables SQL to provide subtotals. It can perform the group function across a <strong>subset</strong> of rows in the interim answer set and provide a total for each subset of rows.</p>
+<p>To avoid mismatch, remember this rule:</p>
+<p><strong>When using a GROUP BY, every column/expression in the SELECT statement must either be:</strong></p>
+<ul>
+<li>a group function</li>
+<li>a column that is being grouped by</li>
+</ul>
+<p>Also remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence.</p>
+</section>
+<section id="having" class="level2">
+<h2 class="anchored" data-anchor-id="having">HAVING</h2>
+<p>Defines a condition that selects a subset of rows from the answer set based on the group functions.</p>
+<p>When using a group by, the having is like a where clause against the interim answer set.</p>
+<p>The syntax rules for HAVING are the same as for WHERE.</p>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<hr>
+<p><strong>Query</strong></p>
+<p>Recall this will generate an error:</p>
+<pre><code>select order_id, product_id, sum(unit_price), sum(quantity)
+from order_details
+where order_id in (10248, 10249, 10250, 10251);</code></pre>
+<p><strong>Result</strong>: ERROR, the level of the group function must match the level of detail in the select statement.</p>
+<p>By adding a <code>GROUP BY</code> clause, we avoid the mismatch and get subtotals by order_id.</p>
+<p><strong>Query</strong></p>
+<pre><code>select order_id, product_id, sum(unit_price), sum(quantity)
+from order_details
+where order_id in (10248, 10249, 10250, 10251)
+group by order_id;</code></pre>
+<p><strong>Result</strong>: subtotals by the specified groups within the variable specified by the group by clause.</p>
+<hr>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select country, count(customer_id) as total
+from customers
+group by country;</code></pre>
+<p><strong>Result</strong>: returns the number of customers in each country.</p>
+<hr>
+</section>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select supplier_id, avg(unit_price) as total
+from products
+group by supplier_id;</code></pre>
+<p><strong>Result</strong>: returns the average product price for each supplier.</p>
+<hr>
+</section>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select supplier_id, sum(units_in_stock) as inventory
+from products
+group by supplier_id
+order by 2 desc limit 1;</code></pre>
+<p><strong>Result</strong>: returns the supplier that northwinds carries the most inventory from.</p>
+<hr>
+</section>
+<section id="example-4-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-4-1">Example 4</h3>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select country, count(customer_id) as total
+from customers
+group by country
+having count(customer_id) &gt; 5
+order by 2 desc;</code></pre>
+<p><strong>Result</strong>: returns the countries in which northwinds has more than five customers.</p>
+<hr>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

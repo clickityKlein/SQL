@@ -7,6 +7,20 @@
     "text": "This page will roughly cover the five GROUP functions, GROUP BY, and using SubQueries."
   },
   {
+    "objectID": "week_2.html#group-by",
+    "href": "week_2.html#group-by",
+    "title": "Group Functions and SubQueries",
+    "section": "GROUP BY",
+    "text": "GROUP BY\nWe’ve previously seen that Group Functions summarize values in an interim answer set return values grouped across many rows. The GROUP BY clause enables SQL to provide subtotals. It can perform the group function across a subset of rows in the interim answer set and provide a total for each subset of rows.\nTo avoid mismatch, remember this rule:\nWhen using a GROUP BY, every column/expression in the SELECT statement must either be:\n\na group function\na column that is being grouped by\n\nAlso remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence."
+  },
+  {
+    "objectID": "week_2.html#having",
+    "href": "week_2.html#having",
+    "title": "Group Functions and SubQueries",
+    "section": "HAVING",
+    "text": "HAVING\nDefines a condition that selects a subset of rows from the answer set based on the group functions.\nWhen using a group by, the having is like a where clause against the interim answer set.\nThe syntax rules for HAVING are the same as for WHERE.\n\nExample 1\n\nQuery\nRecall this will generate an error:\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251);\nResult: ERROR, the level of the group function must match the level of detail in the select statement.\nBy adding a GROUP BY clause, we avoid the mismatch and get subtotals by order_id.\nQuery\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251)\ngroup by order_id;\nResult: subtotals by the specified groups within the variable specified by the group by clause.\n\n\n\nExample 2\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country;\nResult: returns the number of customers in each country.\n\n\n\nExample 3\n\nQuery\nselect supplier_id, avg(unit_price) as total\nfrom products\ngroup by supplier_id;\nResult: returns the average product price for each supplier.\n\n\n\nExample 4\n\nQuery\nselect supplier_id, sum(units_in_stock) as inventory\nfrom products\ngroup by supplier_id\norder by 2 desc limit 1;\nResult: returns the supplier that northwinds carries the most inventory from.\n\n\n\nExample 4\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country\nhaving count(customer_id) &gt; 5\norder by 2 desc;\nResult: returns the countries in which northwinds has more than five customers."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "SQL",
@@ -68,5 +82,19 @@
     "title": "The Basic SELECT",
     "section": "Lab 1",
     "text": "Lab 1\n\nQuestion 1\nQuestion\nList all the products in the North Winds database showing product_id, product_name, quantity_per_unit, unit_price, and units_in_stock.\nAnswer:\nSELECT product_id, product_name, quantity_per_unit, unit_price, units_in_stock\n  FROM products;\n\n\nQuestion 2\nQuestion\nFor all employees at North Winds, list the first name and last name concatenated together with a blank space in-between, and the YEAR when they were hired.\nAnswer:\nSELECT concat(first_name, ' ', last_name) as name,\n  date_part('year', hire_date)\n  FROM employees;\n\n\nQuestion 3\nQuestion\nFor all products in the North Winds database, list the product_name, unit_price, units_in_stock, and the total value of the inventory of that product as “total_value”.\nHint: total_value = units_in_stock * unit_price\nAnswer:\nSELECT product_name, unit_price, units_in_stock,\n  units_in_stock * unit_price as total_value\n  FROM products;\n\n\nQuestion 4\nQuestion\nFor all employees at North Winds, list the first and last name concatenated together with a blank space between under column header “name”, and the name of the month (spelled out) for each employee’s birthday.\nAnswer:\nSELECT concat(first_name, ' ', last_name) as name,\n  --- date_part('month', birth_date) will return the number month\n  --- to_char(birth_date, 'month') will return the month spelled out, in lowercase\n  --- to_char(birth_date, 'Month') will return the month spelled out, in proper case\n  --- to_char(birth_date, 'MONTH') will return the month spelled out, in uppercase\n  to_char(birth_date, 'Month')\n  FROM employees;"
+  },
+  {
+    "objectID": "week_1.html#lab-2",
+    "href": "week_1.html#lab-2",
+    "title": "The Basic SELECT",
+    "section": "Lab 2",
+    "text": "Lab 2\n\nQuestion 1\nQuestion:\nList the customerid, companyname, and country for all customers NOT in the USA.\nAnswer:\nselect customer_id, company_name, country\nfrom customers\nwhere not country = 'U.S.A';\n\n\nQuestion 2\nQuestion:\nFor all products in the Northwinds database, list the productname, unitprice, unitsinstock, and the total value of the inventory of that product as “Total Value” for all products with a Total Value greater than $1000.\n(HINT:  total value = unitsinstock * unitprice)\nAnswer:\nselect product_name, unit_price, units_in_stock,\n(unit_price * units_in_stock) as total_value\nfrom products\nwhere (unit_price * units_in_stock) &gt; 1000;\n\n\nQuestion 3\nQuestion:\nList the productid, productname, and unitprice for all products whose categoryid is an ODD number.\n(HINT: categoryid is a one digit integer less than 9)\nAnswer:\nselect product_id, product_name, unit_price, category_id\nfrom products\nwhere not (category_id % 2) in (0);\n\n\nQuestion 4\nQuestion:\nList the productid, productname, and quantityperunit for all products that come in bottles.\nAnswer:\nselect product_id, product_name, quantity_per_unit\nfrom products\nwhere quantity_per_unit like '%bottle%';\n\n\nQuestion 5\nQuestion:\nList the orderid, customerid, and shippeddate for orders that shipped to Canada in December 1996 through the end of January 1997.\nAnswer:\nselect order_id, customer_id, shipped_date\nfrom products\nwhere (ship_country = 'Canada')\nand (shipped_date between '1996-12-01' and '1997-01-31');"
+  },
+  {
+    "objectID": "week_1.html#lab-3",
+    "href": "week_1.html#lab-3",
+    "title": "The Basic SELECT",
+    "section": "Lab 3",
+    "text": "Lab 3\n\nQuestion 1\nQuestion:\nList the employeeid, firstname + lastname concatenated as ‘employee’, and the age of the employee when they were hired.\nAnswer:\nselect employee_id, concat(first_name, ' ', last_name) as employee,\nage(hire_date, birth_date)\nfrom employees;\n\n\nQuestion 2\nQuestion:\nRun a query to calculate your age as of today.\nAnswer:\nselect age(to_date('19941201', 'YYYYMMDD'));\n\n\nQuestion 3\nQuestion:\nList the employeeid, firstname + lastname concatenated as ‘employee’, and hire date for all employees hired in 1993.\nAnswer:\nselect employee_id, concat(first_name, ' ', last_name) as employee,\nhire_date\nfrom employees\nwhere hire_date between '19930101' and '19931231';"
   }
 ]
