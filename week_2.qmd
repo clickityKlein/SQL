@@ -4,9 +4,113 @@ title: "Group Functions and SubQueries"
 
 This page will roughly cover the five `GROUP` functions, `GROUP BY`, and using SubQueries.
 
+# Concepts
 
+## GROUP BY
 
+We've previously seen that `Group Functions` summarize values in an interim answer set return values grouped across many rows. The `GROUP BY` clause enables SQL to provide subtotals. It can perform the group function across a **subset** of rows in the interim answer set and provide a total for each subset of rows.
 
+To avoid mismatch, remember this rule:
 
+**When using a GROUP BY, every column/expression in the SELECT statement must either be:**
 
+- a group function
+- a column that is being grouped by
 
+Also remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence.
+
+## HAVING
+
+Defines a condition that selects a subset of rows from the answer set based on the group functions.
+
+When using a group by, the having is like a where clause against the interim answer set.
+
+The syntax rules for HAVING are the same as for WHERE.
+
+### Example 1
+---
+
+**Query**
+
+Recall this will generate an error:
+
+```
+select order_id, product_id, sum(unit_price), sum(quantity)
+from order_details
+where order_id in (10248, 10249, 10250, 10251);
+```
+
+**Result**: ERROR, the level of the group function must match the level of detail in the select statement.
+
+By adding a `GROUP BY` clause, we avoid the mismatch and get subtotals by order_id.
+
+**Query**
+
+```
+select order_id, product_id, sum(unit_price), sum(quantity)
+from order_details
+where order_id in (10248, 10249, 10250, 10251)
+group by order_id;
+```
+
+**Result**: subtotals by the specified groups within the variable specified by the group by clause.
+---
+
+### Example 2
+---
+
+**Query**
+
+```
+select country, count(customer_id) as total
+from customers
+group by country;
+```
+
+**Result**: returns the number of customers in each country.
+---
+
+### Example 3
+---
+
+**Query**
+
+```
+select supplier_id, avg(unit_price) as total
+from products
+group by supplier_id;
+```
+
+**Result**: returns the average product price for each supplier.
+---
+
+### Example 4
+---
+
+**Query**
+
+```
+select supplier_id, sum(units_in_stock) as inventory
+from products
+group by supplier_id
+order by 2 desc limit 1;
+```
+
+**Result**: returns the supplier that northwinds carries the most inventory from.
+---
+
+### Example 4
+---
+
+**Query**
+
+```
+select country, count(customer_id) as total
+from customers
+group by country
+having count(customer_id) > 5
+order by 2 desc;
+```
+
+**Result**: returns the countries in which northwinds has more than five customers.
+---
