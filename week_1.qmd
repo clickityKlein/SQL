@@ -229,3 +229,124 @@ SELECT concat(first_name, ' ', last_name) as name,
   to_char(birth_date, 'Month')
   FROM employees;
 ```
+
+## Lab 2
+
+### Question 1
+
+**Question**:
+
+List the customerid, companyname, and country for all customers NOT in the USA.
+
+**Answer**:
+
+```
+select customer_id, company_name, country
+from customers
+where not country = 'U.S.A';
+```
+
+### Question 2
+
+**Question**:
+
+For all products in the Northwinds database, list the productname, unitprice, unitsinstock, and the total value of the inventory of that product as “Total Value” for all products with a Total Value greater than $1000.
+
+`(HINT:  total value = unitsinstock * unitprice)`
+
+**Answer**:
+
+```
+select product_name, unit_price, units_in_stock,
+(unit_price * units_in_stock) as total_value
+from products
+where (unit_price * units_in_stock) > 1000;
+```
+
+### Question 3
+
+**Question**:
+
+List the productid, productname, and unitprice for all products whose categoryid is an ODD number.
+
+`(HINT: categoryid is a one digit integer less than 9)`
+
+**Answer**:
+
+```
+select product_id, product_name, unit_price, category_id
+from products
+where not (category_id % 2) in (0);
+```
+
+### Question 4
+
+**Question**:
+
+List the productid, productname, and quantityperunit for all products that come in bottles.
+
+**Answer**:
+
+```
+select product_id, product_name, quantity_per_unit
+from products
+where quantity_per_unit like '%bottle%';
+```
+
+### Question 5
+
+**Question**:
+
+List the orderid, customerid, and shippeddate for orders that shipped to Canada in December 1996 through the end of January 1997.
+
+**Answer**:
+
+```
+select order_id, customer_id, shipped_date
+from products
+where (ship_country = 'Canada')
+and (shipped_date between '1996-12-01' and '1997-01-31');
+```
+
+## Lab 3
+
+### Question 1
+
+**Question**:
+
+List the employeeid, firstname + lastname concatenated as ‘employee’, and the age of the employee when they were hired.
+
+**Answer**:
+
+```
+select employee_id, concat(first_name, ' ', last_name) as employee,
+age(hire_date, birth_date)
+from employees;
+```
+
+### Question 2
+
+**Question**:
+
+Run a query to calculate your age as of today.
+
+**Answer**:
+
+```
+select age(to_date('19941201', 'YYYYMMDD'));
+```
+
+### Question 3
+
+**Question**:
+
+List the employeeid, firstname + lastname concatenated as ‘employee’, and hire date for all employees hired in 1993.
+
+**Answer**:
+
+```
+select employee_id, concat(first_name, ' ', last_name) as employee,
+hire_date
+from employees
+where hire_date between '19930101' and '19931231';
+```
