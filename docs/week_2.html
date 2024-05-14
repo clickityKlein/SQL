@@ -133,15 +133,26 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#concepts" id="toc-concepts" class="nav-link active" data-scroll-target="#concepts">Concepts</a>
   <ul class="collapse">
-  <li><a href="#group-by" id="toc-group-by" class="nav-link" data-scroll-target="#group-by">GROUP BY</a></li>
-  <li><a href="#having" id="toc-having" class="nav-link" data-scroll-target="#having">HAVING</a>
+  <li><a href="#group-by" id="toc-group-by" class="nav-link" data-scroll-target="#group-by">GROUP BY</a>
+  <ul class="collapse">
+  <li><a href="#common-group-functions" id="toc-common-group-functions" class="nav-link" data-scroll-target="#common-group-functions">Common Group Functions</a></li>
+  </ul></li>
+  <li><a href="#having" id="toc-having" class="nav-link" data-scroll-target="#having">HAVING</a></li>
+  <li><a href="#subquery" id="toc-subquery" class="nav-link" data-scroll-target="#subquery">SubQuery</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
   <ul class="collapse">
   <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
   <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
   <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3</a></li>
   <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example 4</a></li>
   <li><a href="#example-4-1" id="toc-example-4-1" class="nav-link" data-scroll-target="#example-4-1">Example 4</a></li>
-  </ul></li>
+  <li><a href="#example-5" id="toc-example-5" class="nav-link" data-scroll-target="#example-5">Example 5</a></li>
+  <li><a href="#example-6" id="toc-example-6" class="nav-link" data-scroll-target="#example-6">Example 6</a></li>
+  <li><a href="#example-7" id="toc-example-7" class="nav-link" data-scroll-target="#example-7">Example 7</a></li>
+  <li><a href="#example-8" id="toc-example-8" class="nav-link" data-scroll-target="#example-8">Example 8</a></li>
+  <li><a href="#example-9" id="toc-example-9" class="nav-link" data-scroll-target="#example-9">Example 9</a></li>
+  <li><a href="#example-10" id="toc-example-10" class="nav-link" data-scroll-target="#example-10">Example 10</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -174,6 +185,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="group-by" class="level2">
 <h2 class="anchored" data-anchor-id="group-by">GROUP BY</h2>
 <p>We’ve previously seen that <code>Group Functions</code> summarize values in an interim answer set return values grouped across many rows. The <code>GROUP BY</code> clause enables SQL to provide subtotals. It can perform the group function across a <strong>subset</strong> of rows in the interim answer set and provide a total for each subset of rows.</p>
+<section id="common-group-functions" class="level3">
+<h3 class="anchored" data-anchor-id="common-group-functions">Common Group Functions</h3>
+<ul>
+<li>SUM: can only be used on numeric columns</li>
+<li>AVG: can only be used on numeric columns</li>
+<li>COUNT: can be used with any data type column (or with <code>*</code> to simply count rows)</li>
+<li>MIN: can be used with any data type column</li>
+<li>MAX: can be used with any data type column</li>
+</ul>
 <p>To avoid mismatch, remember this rule:</p>
 <p><strong>When using a GROUP BY, every column/expression in the SELECT statement must either be:</strong></p>
 <ul>
@@ -182,13 +202,30 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Also remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence.</p>
 </section>
+</section>
 <section id="having" class="level2">
 <h2 class="anchored" data-anchor-id="having">HAVING</h2>
 <p>Defines a condition that selects a subset of rows from the answer set based on the group functions.</p>
 <p>When using a group by, the having is like a where clause against the interim answer set.</p>
 <p>The syntax rules for HAVING are the same as for WHERE.</p>
-<section id="example-1" class="level3">
-<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+</section>
+<section id="subquery" class="level2">
+<h2 class="anchored" data-anchor-id="subquery">SubQuery</h2>
+<p>Simply a <strong>a query within a query</strong>, and has 3 modes of use:</p>
+<ol type="1">
+<li>Subquery in <strong>WHERE</strong>: answer set to the inner query is used as a predicate in a where clause in the outer query.</li>
+<li>Subquery in <strong>SELECT</strong>: answer set to the inner query is used as a column in a select.</li>
+<li>Subquery in <strong>FROM</strong>: answer set to inner query is used as a virtual table in a from clause.</li>
+</ol>
+<blockquote class="blockquote">
+<p>Subqueries must always be enclosed in parentheses.</p>
+</blockquote>
+</section>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example 1</h2>
 <hr>
 <p><strong>Query</strong></p>
 <p>Recall this will generate an error:</p>
@@ -205,8 +242,8 @@ group by order_id;</code></pre>
 <p><strong>Result</strong>: subtotals by the specified groups within the variable specified by the group by clause.</p>
 <hr>
 </section>
-<section id="example-2" class="level3">
-<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<section id="example-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-2">Example 2</h2>
 <hr>
 <p><strong>Query</strong></p>
 <pre><code>select country, count(customer_id) as total
@@ -215,8 +252,8 @@ group by country;</code></pre>
 <p><strong>Result</strong>: returns the number of customers in each country.</p>
 <hr>
 </section>
-<section id="example-3" class="level3">
-<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<section id="example-3" class="level2">
+<h2 class="anchored" data-anchor-id="example-3">Example 3</h2>
 <hr>
 <p><strong>Query</strong></p>
 <pre><code>select supplier_id, avg(unit_price) as total
@@ -225,8 +262,8 @@ group by supplier_id;</code></pre>
 <p><strong>Result</strong>: returns the average product price for each supplier.</p>
 <hr>
 </section>
-<section id="example-4" class="level3">
-<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<section id="example-4" class="level2">
+<h2 class="anchored" data-anchor-id="example-4">Example 4</h2>
 <hr>
 <p><strong>Query</strong></p>
 <pre><code>select supplier_id, sum(units_in_stock) as inventory
@@ -236,8 +273,8 @@ order by 2 desc limit 1;</code></pre>
 <p><strong>Result</strong>: returns the supplier that northwinds carries the most inventory from.</p>
 <hr>
 </section>
-<section id="example-4-1" class="level3">
-<h3 class="anchored" data-anchor-id="example-4-1">Example 4</h3>
+<section id="example-4-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-4-1">Example 4</h2>
 <hr>
 <p><strong>Query</strong></p>
 <pre><code>select country, count(customer_id) as total
@@ -247,9 +284,98 @@ having count(customer_id) &gt; 5
 order by 2 desc;</code></pre>
 <p><strong>Result</strong>: returns the countries in which northwinds has more than five customers.</p>
 <hr>
-
-
+<p><strong>Result</strong>: returns the supplier that northwinds carries the most inventory from.</p>
+<hr>
 </section>
+<section id="example-5" class="level2">
+<h2 class="anchored" data-anchor-id="example-5">Example 5</h2>
+<hr>
+<p>Using the common Group Functions.</p>
+<p><strong>Query</strong></p>
+<pre><code>select COUNT(*) as "Staff Size"
+from employees;
+
+select COUNT(Distinct country) as "Countries"
+from customer;
+
+select SUM(units_in_stock) as "Inventory"
+from inventory;
+
+select MAX(unit_price) as "High Price"
+from products;
+
+select MIN(unit_price) as "Low Price"
+from products;</code></pre>
+<p><strong>Result</strong>: returns results from database columns using the common group functions.</p>
+<hr>
+</section>
+<section id="example-6" class="level2">
+<h2 class="anchored" data-anchor-id="example-6">Example 6</h2>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select to_char(avg(unit_price), '999,999.99') as "Average Price"
+from products;</code></pre>
+<p><strong>Result</strong>: returns <strong>rounded</strong> average price from unit price.</p>
+<hr>
+</section>
+<section id="example-7" class="level2">
+<h2 class="anchored" data-anchor-id="example-7">Example 7</h2>
+<hr>
+<p>Predicate in a WHERE clause with the <code>=</code> operator.</p>
+<p><strong>Query</strong></p>
+<pre><code>select product_id, product_name, unit_price
+from products
+where unit_price = (
+  select max(unit_price)
+  from products
+);</code></pre>
+<p><strong>Result</strong>: returns the product_id, name, and unit_price of the highest priced product.</p>
+<hr>
+</section>
+<section id="example-8" class="level2">
+<h2 class="anchored" data-anchor-id="example-8">Example 8</h2>
+<hr>
+<p>Predicate in a WHERE clause with the <code>in</code> operator.</p>
+<blockquote class="blockquote">
+<p>Note: this uses TWO different tables.</p>
+</blockquote>
+<p><strong>Query</strong></p>
+<pre><code>select customer_id, order_id
+from orders
+where order_id in (
+  select order_id
+  from order_details
+  where quantity &gt; 100
+);</code></pre>
+<p><strong>Result</strong>: returns the order_ids from the orders database where order quantity is above 100 from the order_details database.</p>
+<hr>
+</section>
+<section id="example-9" class="level2">
+<h2 class="anchored" data-anchor-id="example-9">Example 9</h2>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select product_name,
+(select sum(unit_price * quantity)
+  from order_details
+  where order_details.product_id = products_order_id) as "Total
+from products;</code></pre>
+<p><strong>Result</strong>: list each product name and the total value of that product’s order.</p>
+<hr>
+</section>
+<section id="example-10" class="level2">
+<h2 class="anchored" data-anchor-id="example-10">Example 10</h2>
+<hr>
+<p><strong>Query</strong></p>
+<pre><code>select order_id
+from (select order_id, sum(quantity)
+  from order_details
+  group by order_id
+  having sum(quantity) &lt; 100)
+as detail_count;</code></pre>
+<p><strong>Result</strong>: create a list of all orders with fewer than 100 items sold <em>(note: the subquery must have an alias name)</em>.</p>
+<hr>
+
+
 </section>
 </section>
 

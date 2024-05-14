@@ -10,6 +10,14 @@ This page will roughly cover the five `GROUP` functions, `GROUP BY`, and using S
 
 We've previously seen that `Group Functions` summarize values in an interim answer set return values grouped across many rows. The `GROUP BY` clause enables SQL to provide subtotals. It can perform the group function across a **subset** of rows in the interim answer set and provide a total for each subset of rows.
 
+### Common Group Functions
+
+- SUM: can only be used on numeric columns
+- AVG: can only be used on numeric columns
+- COUNT: can be used with any data type column (or with `*` to simply count rows)
+- MIN: can be used with any data type column
+- MAX: can be used with any data type column
+
 To avoid mismatch, remember this rule:
 
 **When using a GROUP BY, every column/expression in the SELECT statement must either be:**
@@ -27,7 +35,19 @@ When using a group by, the having is like a where clause against the interim ans
 
 The syntax rules for HAVING are the same as for WHERE.
 
-### Example 1
+## SubQuery
+
+Simply a **a query within a query**, and has 3 modes of use:
+
+1. Subquery in **WHERE**: answer set to the inner query is used as a predicate in a where clause in the outer query.
+2. Subquery in **SELECT**: answer set to the inner query is used as a column in a select.
+3. Subquery in **FROM**: answer set to inner query is used as a virtual table in a from clause.
+
+> Subqueries must always be enclosed in parentheses.
+
+# Examples
+
+## Example 1
 ---
 
 **Query**
@@ -56,7 +76,7 @@ group by order_id;
 **Result**: subtotals by the specified groups within the variable specified by the group by clause.
 ---
 
-### Example 2
+## Example 2
 ---
 
 **Query**
@@ -70,7 +90,7 @@ group by country;
 **Result**: returns the number of customers in each country.
 ---
 
-### Example 3
+## Example 3
 ---
 
 **Query**
@@ -84,7 +104,7 @@ group by supplier_id;
 **Result**: returns the average product price for each supplier.
 ---
 
-### Example 4
+## Example 4
 ---
 
 **Query**
@@ -99,7 +119,7 @@ order by 2 desc limit 1;
 **Result**: returns the supplier that northwinds carries the most inventory from.
 ---
 
-### Example 4
+## Example 4
 ---
 
 **Query**
@@ -113,4 +133,121 @@ order by 2 desc;
 ```
 
 **Result**: returns the countries in which northwinds has more than five customers.
+---
+
+**Result**: returns the supplier that northwinds carries the most inventory from.
+---
+
+## Example 5
+---
+
+Using the common Group Functions.
+
+**Query**
+
+```
+select COUNT(*) as "Staff Size"
+from employees;
+
+select COUNT(Distinct country) as "Countries"
+from customer;
+
+select SUM(units_in_stock) as "Inventory"
+from inventory;
+
+select MAX(unit_price) as "High Price"
+from products;
+
+select MIN(unit_price) as "Low Price"
+from products;
+```
+
+**Result**: returns results from database columns using the common group functions.
+---
+
+## Example 6
+---
+
+**Query**
+
+```
+select to_char(avg(unit_price), '999,999.99') as "Average Price"
+from products;
+```
+
+**Result**: returns **rounded** average price from unit price.
+---
+
+## Example 7
+---
+
+Predicate in a WHERE clause with the `=` operator.
+
+**Query**
+
+```
+select product_id, product_name, unit_price
+from products
+where unit_price = (
+  select max(unit_price)
+  from products
+);
+```
+
+**Result**: returns the product_id, name, and unit_price of the highest priced product.
+---
+
+## Example 8
+---
+
+Predicate in a WHERE clause with the `in` operator.
+
+> Note: this uses TWO different tables.
+
+**Query**
+
+```
+select customer_id, order_id
+from orders
+where order_id in (
+  select order_id
+  from order_details
+  where quantity > 100
+);
+```
+
+**Result**: returns the order_ids from the orders database where order quantity is above 100 from the order_details database.
+---
+
+## Example 9
+---
+
+**Query**
+
+```
+select product_name,
+(select sum(unit_price * quantity)
+  from order_details
+  where order_details.product_id = products_order_id) as "Total
+from products;
+```
+
+**Result**: list each product name and the total value of that product's order.
+---
+
+## Example 10
+---
+
+**Query**
+
+```
+select order_id
+from (select order_id, sum(quantity)
+  from order_details
+  group by order_id
+  having sum(quantity) < 100)
+as detail_count;
+```
+
+**Result**: create a list of all orders with fewer than 100 items sold *(note: the subquery must have an alias name)*.
 ---

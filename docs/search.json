@@ -11,14 +11,98 @@
     "href": "week_2.html#group-by",
     "title": "Group Functions and SubQueries",
     "section": "GROUP BY",
-    "text": "GROUP BY\nWe’ve previously seen that Group Functions summarize values in an interim answer set return values grouped across many rows. The GROUP BY clause enables SQL to provide subtotals. It can perform the group function across a subset of rows in the interim answer set and provide a total for each subset of rows.\nTo avoid mismatch, remember this rule:\nWhen using a GROUP BY, every column/expression in the SELECT statement must either be:\n\na group function\na column that is being grouped by\n\nAlso remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence."
+    "text": "GROUP BY\nWe’ve previously seen that Group Functions summarize values in an interim answer set return values grouped across many rows. The GROUP BY clause enables SQL to provide subtotals. It can perform the group function across a subset of rows in the interim answer set and provide a total for each subset of rows.\n\nCommon Group Functions\n\nSUM: can only be used on numeric columns\nAVG: can only be used on numeric columns\nCOUNT: can be used with any data type column (or with * to simply count rows)\nMIN: can be used with any data type column\nMAX: can be used with any data type column\n\nTo avoid mismatch, remember this rule:\nWhen using a GROUP BY, every column/expression in the SELECT statement must either be:\n\na group function\na column that is being grouped by\n\nAlso remember that even though the group function is sorting the interim answer set in order to calculate the totals, we must still use an order by clause to list the totals in group sequence."
   },
   {
     "objectID": "week_2.html#having",
     "href": "week_2.html#having",
     "title": "Group Functions and SubQueries",
     "section": "HAVING",
-    "text": "HAVING\nDefines a condition that selects a subset of rows from the answer set based on the group functions.\nWhen using a group by, the having is like a where clause against the interim answer set.\nThe syntax rules for HAVING are the same as for WHERE.\n\nExample 1\n\nQuery\nRecall this will generate an error:\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251);\nResult: ERROR, the level of the group function must match the level of detail in the select statement.\nBy adding a GROUP BY clause, we avoid the mismatch and get subtotals by order_id.\nQuery\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251)\ngroup by order_id;\nResult: subtotals by the specified groups within the variable specified by the group by clause.\n\n\n\nExample 2\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country;\nResult: returns the number of customers in each country.\n\n\n\nExample 3\n\nQuery\nselect supplier_id, avg(unit_price) as total\nfrom products\ngroup by supplier_id;\nResult: returns the average product price for each supplier.\n\n\n\nExample 4\n\nQuery\nselect supplier_id, sum(units_in_stock) as inventory\nfrom products\ngroup by supplier_id\norder by 2 desc limit 1;\nResult: returns the supplier that northwinds carries the most inventory from.\n\n\n\nExample 4\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country\nhaving count(customer_id) &gt; 5\norder by 2 desc;\nResult: returns the countries in which northwinds has more than five customers."
+    "text": "HAVING\nDefines a condition that selects a subset of rows from the answer set based on the group functions.\nWhen using a group by, the having is like a where clause against the interim answer set.\nThe syntax rules for HAVING are the same as for WHERE."
+  },
+  {
+    "objectID": "week_2.html#subquery",
+    "href": "week_2.html#subquery",
+    "title": "Group Functions and SubQueries",
+    "section": "SubQuery",
+    "text": "SubQuery\nSimply a a query within a query, and has 3 modes of use:\n\nSubquery in WHERE: answer set to the inner query is used as a predicate in a where clause in the outer query.\nSubquery in SELECT: answer set to the inner query is used as a column in a select.\nSubquery in FROM: answer set to inner query is used as a virtual table in a from clause.\n\n\nSubqueries must always be enclosed in parentheses."
+  },
+  {
+    "objectID": "week_2.html#example-1",
+    "href": "week_2.html#example-1",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 1",
+    "text": "Example 1\n\nQuery\nRecall this will generate an error:\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251);\nResult: ERROR, the level of the group function must match the level of detail in the select statement.\nBy adding a GROUP BY clause, we avoid the mismatch and get subtotals by order_id.\nQuery\nselect order_id, product_id, sum(unit_price), sum(quantity)\nfrom order_details\nwhere order_id in (10248, 10249, 10250, 10251)\ngroup by order_id;\nResult: subtotals by the specified groups within the variable specified by the group by clause."
+  },
+  {
+    "objectID": "week_2.html#example-2",
+    "href": "week_2.html#example-2",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 2",
+    "text": "Example 2\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country;\nResult: returns the number of customers in each country."
+  },
+  {
+    "objectID": "week_2.html#example-3",
+    "href": "week_2.html#example-3",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 3",
+    "text": "Example 3\n\nQuery\nselect supplier_id, avg(unit_price) as total\nfrom products\ngroup by supplier_id;\nResult: returns the average product price for each supplier."
+  },
+  {
+    "objectID": "week_2.html#example-4",
+    "href": "week_2.html#example-4",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 4",
+    "text": "Example 4\n\nQuery\nselect supplier_id, sum(units_in_stock) as inventory\nfrom products\ngroup by supplier_id\norder by 2 desc limit 1;\nResult: returns the supplier that northwinds carries the most inventory from."
+  },
+  {
+    "objectID": "week_2.html#example-4-1",
+    "href": "week_2.html#example-4-1",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 4",
+    "text": "Example 4\n\nQuery\nselect country, count(customer_id) as total\nfrom customers\ngroup by country\nhaving count(customer_id) &gt; 5\norder by 2 desc;\nResult: returns the countries in which northwinds has more than five customers.\n\nResult: returns the supplier that northwinds carries the most inventory from."
+  },
+  {
+    "objectID": "week_2.html#example-5",
+    "href": "week_2.html#example-5",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 5",
+    "text": "Example 5\n\nUsing the common Group Functions.\nQuery\nselect COUNT(*) as \"Staff Size\"\nfrom employees;\n\nselect COUNT(Distinct country) as \"Countries\"\nfrom customer;\n\nselect SUM(units_in_stock) as \"Inventory\"\nfrom inventory;\n\nselect MAX(unit_price) as \"High Price\"\nfrom products;\n\nselect MIN(unit_price) as \"Low Price\"\nfrom products;\nResult: returns results from database columns using the common group functions."
+  },
+  {
+    "objectID": "week_2.html#example-6",
+    "href": "week_2.html#example-6",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 6",
+    "text": "Example 6\n\nQuery\nselect to_char(avg(unit_price), '999,999.99') as \"Average Price\"\nfrom products;\nResult: returns rounded average price from unit price."
+  },
+  {
+    "objectID": "week_2.html#example-7",
+    "href": "week_2.html#example-7",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 7",
+    "text": "Example 7\n\nPredicate in a WHERE clause with the = operator.\nQuery\nselect product_id, product_name, unit_price\nfrom products\nwhere unit_price = (\n  select max(unit_price)\n  from products\n);\nResult: returns the product_id, name, and unit_price of the highest priced product."
+  },
+  {
+    "objectID": "week_2.html#example-8",
+    "href": "week_2.html#example-8",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 8",
+    "text": "Example 8\n\nPredicate in a WHERE clause with the in operator.\n\nNote: this uses TWO different tables.\n\nQuery\nselect customer_id, order_id\nfrom orders\nwhere order_id in (\n  select order_id\n  from order_details\n  where quantity &gt; 100\n);\nResult: returns the order_ids from the orders database where order quantity is above 100 from the order_details database."
+  },
+  {
+    "objectID": "week_2.html#example-9",
+    "href": "week_2.html#example-9",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 9",
+    "text": "Example 9\n\nQuery\nselect product_name,\n(select sum(unit_price * quantity)\n  from order_details\n  where order_details.product_id = products_order_id) as \"Total\nfrom products;\nResult: list each product name and the total value of that product’s order."
+  },
+  {
+    "objectID": "week_2.html#example-10",
+    "href": "week_2.html#example-10",
+    "title": "Group Functions and SubQueries",
+    "section": "Example 10",
+    "text": "Example 10\n\nQuery\nselect order_id\nfrom (select order_id, sum(quantity)\n  from order_details\n  group by order_id\n  having sum(quantity) &lt; 100)\nas detail_count;\nResult: create a list of all orders with fewer than 100 items sold (note: the subquery must have an alias name)."
   },
   {
     "objectID": "index.html",
